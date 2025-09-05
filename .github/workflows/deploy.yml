@@ -37,5 +37,4 @@ jobs:
         with:
           branch: gh-pages                   # Branch where files will be pushed
           folder: dist/personal-finance-tracker       # ⚠️ Replace with your actual dist folder
-          clean: true                        # Clean the target branch before deploying
-          target-folder: personal-finance-tracker  # Optional: Set a target folder within the
+          clean: true   
