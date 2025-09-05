@@ -6,7 +6,7 @@
       </div> -->
  <mat-toolbar color="primary" class="top-nav">
   <span>My App</span>
-   <app-user-menu [user]="auth.user()"></app-user-menu>
+   <app-user-menu [user]="auth.user()" (logoutEvent)="logout()"></app-user-menu>
 </mat-toolbar>
 <div class="layout">
   <!-- Sidebar -->
