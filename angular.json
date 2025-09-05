@@ -43,6 +43,7 @@
           },
           "configurations": {
             "production": { 
+              "baseHref": "https://manaloerico.github.io/personal-finance-tracker/",
               "budgets": [
                 {
                   "type": "initial",
