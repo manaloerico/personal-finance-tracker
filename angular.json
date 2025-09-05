@@ -42,8 +42,7 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
-              "baseHref": "/personal-finance-tracker/",
+            "production": { 
               "budgets": [
                 {
                   "type": "initial",
