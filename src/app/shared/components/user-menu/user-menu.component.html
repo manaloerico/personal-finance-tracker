@@ -1,0 +1,17 @@
+<ng-container *ngIf="user">
+  <div class="relative inline-block text-left">
+    <!-- Profile Picture -->
+    <img [src]="user.photoURL || defaultAvatar" alt="Profile"  [matMenuTriggerFor]="menu" />
+
+    <mat-menu #menu="matMenu" class="user-menu">
+      <div mat-menu-item>
+        <img [src]="user.photoURL || defaultAvatar" alt="Profile" />
+        {{ user.displayName }}
+
+      </div>
+      <button mat-menu-item (click)="logout()"> Log Out</button>
+    </mat-menu>
+
+  </div>
+
+</ng-container>

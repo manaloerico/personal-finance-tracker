@@ -1,0 +1,58 @@
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 60px;
+    background-color: #eeeeee;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.sidebar.expanded {
+    width: 200px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+
+    &.active {
+        background-color: var(--mat-list-active-indicator-color, var(--mat-sys-secondary-container));
+    }
+}
+
+.label {
+    margin-left: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.sidebar.expanded .label {
+    opacity: 1;
+}
+
+.main {
+    flex: 1;
+    overflow-y: auto;
+    background: #f9f9f9;
+}
+
+.content {
+    padding: 16px;
+}
+
+.top-nav {
+    display: flex;
+    flex-direction: row;
+    place-content: center space-between;
+    align-items: center;
+}

@@ -1,0 +1,29 @@
+:host {
+    display: inline-block;
+    :hover {
+        cursor: pointer;
+    }
+
+    img {
+        border-radius: 50px;
+        width: 40px;
+
+    }
+}
+
+::ng-deep {
+    .user-menu {
+        margin-top:5px;
+        width: 360px;
+        .mat-mdc-menu-item-text {
+            align-items: center;
+            display: flex;
+            gap: 10px;
+        }
+
+        img {
+            border-radius: 50px;
+            width: 40px;
+        }
+    }
+}
