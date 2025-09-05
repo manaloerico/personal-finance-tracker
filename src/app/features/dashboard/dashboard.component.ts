@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { of } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
 
 @Component({
@@ -11,9 +11,13 @@ import { AuthService } from 'src/app/core/auth/service/auth.service';
   styleUrls: ['./dashboard.component.css'],
   providers: [AuthService]
 })
-export class DashboardComponent {
-  protected auth = inject(AuthService); 
-  user$ = of(this.auth.user());
+export class DashboardComponent implements OnInit {
+  protected auth = inject(AuthService);  
+  user$ = this.auth.user$.pipe(tap(user => console.log('User in dashboard:', user)  ));
+  
+  ngOnInit(): void {
+  console.log(this.auth.user());
+  }
  logout() {
     this.auth.logout();
   }

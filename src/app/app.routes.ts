@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { canActivateAuth } from './core/auth/guards/auth.guard';
+import { canActivateAuth, canActivateUnAuth } from './core/auth/guards/auth.guard';
 
 export const routes: Routes = [
      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
@@ -12,6 +12,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
+    canActivate: [canActivateUnAuth],
     loadComponent: () =>
       import('./core/auth/pages/login-page/login-page.component')
         .then(m => m.LoginPageComponent),

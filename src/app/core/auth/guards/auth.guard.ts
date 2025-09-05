@@ -1,15 +1,35 @@
 import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
-import { AuthService } from "../service/auth.service";
+import { authState } from 'rxfire/auth';
+import { map, take } from "rxjs";
+import { Auth as FirebaseAuth } from 'firebase/auth';
+import { Auth as AngularFireAuth } from '@angular/fire/auth';
+type FixedAuth = AngularFireAuth & FirebaseAuth;
 
 export const canActivateAuth: CanActivateFn = () => {
-  const auth = inject(AuthService);
+  const auth = inject(AngularFireAuth) as FixedAuth;
   const router = inject(Router);
-  console.log(auth);
-  console.log(auth.isAuthed);
-  if (auth.isAuthed){
-return true;
-  } 
-  router.navigateByUrl('/auth');
-  return false;
+
+ return authState(auth).pipe(
+    take(1), // wait for the first user state
+    map(user => {
+      if (user) return true;
+      router.navigate(['/auth']);
+      return false;
+    })
+  );
+
 };
+
+export const canActivateUnAuth: CanActivateFn = () => {
+  const auth = inject(AngularFireAuth) as FixedAuth;
+  const router = inject(Router); 
+ return authState(auth).pipe(
+    take(1), // wait for the first user state
+    map(user => {
+      if (!user) return true;
+      router.navigate(['/dashboard']);
+      return false;
+    })
+  );
+}
