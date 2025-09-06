@@ -1,0 +1,12 @@
+ <h2>Manage Categories</h2>
+    <form (ngSubmit)="addCategory()">
+      <input [(ngModel)]="newCategory" name="name" placeholder="Category name" required />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul>
+      <li *ngFor="let cat of categories$ | async">
+        <span [style.color]="cat.color || 'black'">{{ cat.categoryName }}</span>
+        <button (click)="deleteCategory(cat.id!)">❌</button>
+      </li>
+    </ul>

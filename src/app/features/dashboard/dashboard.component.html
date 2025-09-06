@@ -1,1 +1,14 @@
-Dashboard here
+<div class="grid" style="display:grid; gap:16px; grid-template-columns: repeat(auto-fit,minmax(240px,1fr));">
+      <mat-card>
+        <h3>Total Income</h3>
+        <p>{{ (totals$ | async)?.income | number:'1.2-2' }}</p>
+      </mat-card>
+      <mat-card>
+        <h3>Total Expenses</h3>
+        <p>{{ (totals$ | async)?.expenses | number:'1.2-2' }}</p>
+      </mat-card>
+      <mat-card>
+        <h3>Balance</h3>
+        <p>{{ (totals$ | async)?.balance | number:'1.2-2' }}</p>
+      </mat-card>
+    </div>

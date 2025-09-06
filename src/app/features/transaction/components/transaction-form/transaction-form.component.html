@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Hi </h2>
+
+<form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="space-y-4 max-w-md">
+
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Transaction Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Transaction Category</mat-label>
+      <mat-select formControlName="categoryId">
+        <ng-container *ngFor="let category of categoryList">
+          <mat-option [value]="category.id">{{category.categoryName}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Transaction Date</mat-label>
+      <input matInput formControlName="date" />
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Transaction Amount</mat-label>
+      <input matInput formControlName="amount" type="number" />
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Note</mat-label>
+      <textarea matInput formControlName="note"></textarea>
+    </mat-form-field>
+
+    <!-- 
+  <div>
+    <label>Type</label>
+    <select formControlName="type" class="border p-2 w-full">
+      <option value="" disabled>Select Type</option>
+      <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+    </select>
+    <div *ngIf="transactionForm.get('type')?.invalid && transactionForm.get('type')?.touched" class="text-red-500">
+      Type is required.
+    </div>
+  </div> -->
+
+
+</div>
+  <div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="default" type="button" (click)="dialogRef.close()">No Thanks</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="transactionForm.invalid"
+      cdkFocusInitial>Ok</button>
+  </div>
+</form>
