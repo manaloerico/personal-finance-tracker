@@ -1,21 +1,26 @@
 .layout {
     display: flex;
     height: 100vh;
+
+
+    background: var(--mat-sidenav-content-background-color);
+    color: var(--mat-sidenav-content-text-color);
 }
 
 .sidebar {
     width: 60px;
-    background-color: #eeeeee;
     transition: width 0.3s ease;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
+    border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
 .sidebar.expanded {
     width: 200px;
+    border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
 .menu-item {
@@ -43,7 +48,6 @@
 .main {
     flex: 1;
     overflow-y: auto;
-    background: #f9f9f9;
 }
 
 .content {
@@ -55,4 +59,12 @@
     flex-direction: row;
     place-content: center space-between;
     align-items: center;
+
+    &__right {
+        display: flex;
+        gap: 15px;
+        flex-direction: row;
+        place-content: center end;
+        align-items: center;
+    }
 }

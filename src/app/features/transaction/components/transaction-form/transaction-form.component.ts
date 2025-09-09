@@ -11,7 +11,8 @@ import { Category } from '../../../../core/services/category/category.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog'; 
+import { Transaction } from '../../../../core/services/transaction.service';
 @Component({
   selector: 'app-transaction-form',
   standalone: true,
@@ -28,7 +29,7 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
   styleUrls: ['./transaction-form.component.scss'],
 })
 export class TransactionFormComponent implements OnInit {
-  protected data: { categoryList: Category[] } = inject(DIALOG_DATA); 
+  protected data: { categoryList: Category[],action:'add' | 'update',currentData:Transaction } = inject(DIALOG_DATA); 
 
     dialogRef = inject<DialogRef<unknown>>(DialogRef<unknown>); 
   get categoryList() {
@@ -49,11 +50,20 @@ export class TransactionFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log();
+    if(this.data.action==='update' && this.data.currentData){
+      this.transactionForm.patchValue({
+        name: this.data.currentData.name,
+        amount: this.data.currentData.amount,
+        type: this.data.currentData.type,
+        categoryId: this.data.currentData.categoryId,
+        date: new Date(this.data.currentData.date).toISOString().substring(0, 10),
+        note: this.data.currentData.note,
+      });
+    }
   }
 
   onSubmit() {
     console.log(this.transactionForm.value); 
-    this.dialogRef.close(this.transactionForm.value);
+    this.dialogRef.close({action:this.data.action,data:this.transactionForm.value});
   }
 }

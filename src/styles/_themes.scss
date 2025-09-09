@@ -1,0 +1,53 @@
+@use '@angular/material' as mat;
+
+// Common palettes
+$primary: mat.define-palette(mat.$indigo-palette);
+$accent: mat.define-palette(mat.$pink-palette);
+$warn: mat.define-palette(mat.$red-palette);
+
+// 1. Indigo / Pink (default Material theme)
+$indigo-pink-theme: mat.define-light-theme((color: (primary: $primary, accent: $accent, warn: $warn),
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
+
+// 2. Deep Purple / Amber
+$deeppurple-amber-theme: mat.define-light-theme((color: (primary: mat.define-palette(mat.$deep-purple-palette),
+                accent: mat.define-palette(mat.$amber-palette),
+                warn: $warn,
+            ),
+        ));
+
+// 3. Pink / Blue Grey (popular dark theme)
+$pink-bluegrey-theme: mat.define-dark-theme((color: (primary: mat.define-palette(mat.$pink-palette),
+                accent: mat.define-palette(mat.$blue-grey-palette),
+                warn: $warn,
+            ),
+        ));
+
+// 4. Purple / Green
+$purple-green-theme: mat.define-dark-theme((color: (primary: mat.define-palette(mat.$purple-palette),
+                accent: mat.define-palette(mat.$green-palette),
+                warn: $warn,
+            ),
+        ));
+
+// Apply one default (Indigo / Pink)
+@include mat.all-component-themes($indigo-pink-theme);
+
+// Scoped classes for runtime switching
+.indigo-pink-theme {
+    @include mat.all-component-colors($indigo-pink-theme);
+}
+
+.deeppurple-amber-theme {
+    @include mat.all-component-colors($deeppurple-amber-theme);
+}
+
+.pink-bluegrey-theme {
+    @include mat.all-component-colors($pink-bluegrey-theme);
+}
+
+.purple-green-theme {
+    @include mat.all-component-colors($purple-green-theme);
+}

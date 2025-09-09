@@ -1,35 +1,42 @@
- <!-- <div *ngIf="auth.user() as user"> 
-        <img [src]="user.photoURL" alt="avatar" width="32" />
-        <span>{{ user.displayName }}</span>
-        <button (click)="logout()">Logout</button>
-        <router-outlet></router-outlet>
-      </div> -->
- <mat-toolbar color="primary" class="top-nav">
-  <span>My App</span>
-   <app-user-menu [user]="auth.user()" (logoutEvent)="logout()"></app-user-menu>
-</mat-toolbar>
-<div class="layout">
-  <!-- Sidebar -->
-  <nav class="sidebar" [class.expanded]="hovered" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
-    
-    <div class="menu-item" [routerLink]="['/dashboard']" >
-      <mat-icon>dashboard</mat-icon>
-      <span class="label">Dashboard</span>
-    </div>
-    <div class="menu-item" [routerLink]="['/transactions']">
-      <mat-icon>group</mat-icon>
-      <span class="label">Transactions</span>
-    </div>
-    <div class="menu-item" [routerLink]="['/categories']">
-      <mat-icon>event</mat-icon>
-      <span class="label">Category</span>
-    </div>
-  </nav>
+<div [ngClass]="theme.theme + '-theme'">
+  <mat-toolbar color="primary" class="top-nav">
+    <span>My App</span>
 
-  <!-- Main Content -->
-  <main class="main">
-    <div class="content">
-      <router-outlet></router-outlet>
+    <div class="top-nav__right">
+      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>format_color_fill</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="theme.setTheme('indigo-pink')">Indigo/Pink</button>
+        <button mat-menu-item (click)="theme.setTheme('deeppurple-amber')">DeepPurple/Amber</button>
+        <button mat-menu-item (click)="theme.setTheme('pink-bluegrey')">Pink/BlueGrey</button>
+        <button mat-menu-item (click)="theme.setTheme('purple-green')">Purple/Green</button>
+      </mat-menu>
+
+      <app-user-menu [user]="auth.user()" (logoutEvent)="logout()"></app-user-menu>
     </div>
-  </main>
+  </mat-toolbar>
+  <div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" [class.expanded]="hovered" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+
+      <div class="menu-item" [routerLink]="['/dashboard']">
+        <mat-icon>dashboard</mat-icon>
+        <span class="label">Dashboard</span>
+      </div>
+      <div class="menu-item" [routerLink]="['/transactions']">
+        <mat-icon>group</mat-icon>
+        <span class="label">Transactions</span>
+      </div>
+      <div class="menu-item" [routerLink]="['/categories']">
+        <mat-icon>event</mat-icon>
+        <span class="label">Category</span>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
 </div>

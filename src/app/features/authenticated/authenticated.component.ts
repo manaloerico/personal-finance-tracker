@@ -6,31 +6,39 @@ import { AuthService } from '../../core/auth/service/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserMenuComponent } from '../../shared/components/user-menu/user-menu.component';
+import { ThemeService } from '../../shared/styles/theming/theme.service';
 @Component({
   selector: 'app-authenticated',
   standalone: true,
   templateUrl: './authenticated.component.html',
-  imports: [CommonModule,RouterOutlet,RouterLink,MatSidenavModule,
-     MatToolbarModule,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    MatSidenavModule,
+    MatToolbarModule,
     MatIconModule,
     MatListModule,
     MatButtonModule,
-  UserMenuComponent],
-  styleUrls: ['./authenticated.component.scss']
+    UserMenuComponent,
+    MatMenuModule,
+  ],
+  styleUrls: ['./authenticated.component.scss'],
 })
 export class AuthenticatedComponent implements OnInit {
-  
- hovered = false;
-  protected auth = inject(AuthService);   
-  
+  isDark = true;
+  hovered = false;
+  protected auth = inject(AuthService);
+  protected theme = inject(ThemeService);
+
   ngOnInit(): void {
-  console.log(this.auth.user());
+    console.log(this.auth.user());
   }
- logout() {
+  logout() {
     this.auth.logout();
   }
-
 }

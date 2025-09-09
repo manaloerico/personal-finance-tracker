@@ -5,6 +5,7 @@ import {
   DocumentData,
   DocumentReference,
   FieldValue,
+  getDocs,
   onSnapshot, orderBy, query, serverTimestamp, updateDoc, where
 } from 'firebase/firestore'; 
 import { BehaviorSubject, map } from 'rxjs';
@@ -23,6 +24,7 @@ export interface Transaction {
   note?: string;
   userId?: string;
   createdAt?: string | FieldValue;
+  name: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -41,8 +43,8 @@ export class TransactionsService {
     })
   );
 
-  constructor() {
-    this.categoryService.initRealtime()
+  constructor() { 
+    console.log(' TransactionsService initialized');
   }
   private unsub: (() => void) | null = null;
 
@@ -62,12 +64,39 @@ export class TransactionsService {
     );
 
     this.unsub = onSnapshot(q, (snap) => {
-      const data = snap.docs.map(d => ({ id: d.id, ...d.data() } as Transaction));
+      const data = snap.docs.map(d => ({
+         id: d.id, ...d.data() } as Transaction));
+      console.log('Transactions updated', data);
       this._transactions$.next(data);
     });
   }
+  
+  async  getTransactionsWithCategories() {
+  // 1. Load categories once
+  const categoryMap = await this.categoryService.getCategoryMap();
+
+  // 2. Load transactions
+  const transactionSnap = await getDocs(this.col);
+
+  // 3. Merge category info
+  const enriched = transactionSnap.docs.map(docSnap => {
+    const data = docSnap.data() as unknown as Transaction;
+    const category = data.category ? categoryMap[(data.category as DocumentReference).path] : null;
+
+    const returnData= {
+      id: docSnap.id,
+      ...data,
+      category, // replaces reference with real category object
+    } as unknown as Transaction; 
+    return returnData;
+  });
+  console.log("enriched",enriched);
+  this._transactions$.next(enriched);
+  return enriched;
+}
+
 categoryList(){
-  return this.categoryService.getCategorysOnce();
+  return [];
 }
   unsubscribe() {
     if (this.unsub) { this.unsub(); this.unsub = null; }
@@ -75,8 +104,8 @@ categoryList(){
 
   async add(tx: Omit<Transaction, 'id'|'userId'|'createdAt'>) {
     if (!this.auth.uid) throw new Error('Not authenticated');
-    const payload: Omit<Transaction,'categoryId'> = { ...tx, category:this.getCategoryRef(tx.categoryId),userId: this.auth.uid, createdAt: serverTimestamp() };
-    console.log("payload",payload);
+    const payload= { ...tx, category:this.getCategoryRef(tx.categoryId),userId: this.auth.uid, createdAt: serverTimestamp() };
+
     try{
     await addDoc(this.col, payload);}
     catch(err){
@@ -84,8 +113,9 @@ categoryList(){
     }
   }
 
-  async update(id: string, patch: Partial<Transaction>) {
-    await updateDoc(doc(this.col, id), patch);
+  async update(id: string, patch: Partial<Transaction>) { 
+    const payload = { ...patch, category:this.getCategoryRef(patch.categoryId) }; 
+    await updateDoc(doc(this.col, id), payload);
   }
 
   async remove(id: string) {

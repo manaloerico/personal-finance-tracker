@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Hi </h2>
+
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="space-y-4 max-w-md">
+
+  <div mat-dialog-content>
+    
+
+    <mat-form-field>
+      <mat-label>Transaction Type</mat-label>
+      <mat-select formControlName="transactionTypeId"> 
+        <ng-container *ngFor="let transactionType of transactionTypeList">
+          <mat-option [value]="transactionType.id">{{transactionType.name}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Category Name</mat-label>
+      <input matInput formControlName="categoryName" />
+    </mat-form-field>
+
+ 
+
+</div>
+  <div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="default" type="button" (click)="dialogRef.close()">No Thanks</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="categoryForm.invalid"
+      cdkFocusInitial>Ok</button>
+  </div>
+</form>

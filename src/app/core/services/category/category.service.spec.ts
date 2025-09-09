@@ -1,12 +1,10 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { CategoryService } from './category.service';
 
 describe('Service: Category', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CategoryService]
+      providers: [CategoryService],
     });
   });
 

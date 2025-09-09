@@ -1,12 +1,40 @@
- <h2>Manage Categories</h2>
-    <form (ngSubmit)="addCategory()">
-      <input [(ngModel)]="newCategory" name="name" placeholder="Category name" required />
-      <button type="submit">Add</button>
-    </form>
+<h2>Manage Categories</h2>
+<div class="category__actions_container">
+  <form [formGroup]="categorySearchForm" class="space-y-4 max-w-md">
 
-    <ul>
-      <li *ngFor="let cat of categories$ | async">
-        <span [style.color]="cat.color || 'black'">{{ cat.categoryName }}</span>
-        <button (click)="deleteCategory(cat.id!)">❌</button>
-      </li>
-    </ul>
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput formControlName="categorySearchField" />
+    </mat-form-field>
+
+  </form>
+  <button mat-raised-button color="primary" (click)="addCategory()">Add Category</button>
+</div>
+<div class="category__container">
+  <table mat-table
+    [dataSource]="(categories$ | async) || []  | searchFilter:categorySearchForm.get('categorySearchField')?.value! :'categoryName'">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let t">{{ t.date | date }}</td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let t">{{ t.categoryName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let t">{{ t.transactionType?.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let t">
+        <button mat-button color="warn" (click)="deleteCategory(t.id)">Delete</button>
+        <button mat-button color="warn" (click)="updateCategory(t)">Edit</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['date','name','type','action']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['date','name','type','action'];"></tr>
+  </table>
+</div>
