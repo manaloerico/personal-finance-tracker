@@ -24,8 +24,7 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 
-import * as _moment from 'moment';
-import { Moment } from 'moment';
+import _moment, { Moment } from 'moment';
 
 const moment = _moment;
 export const MY_FORMATS = {
@@ -40,28 +39,29 @@ export const MY_FORMATS = {
   },
 };
 @Component({
-    selector: 'app-budget-form',
-    imports: [
-        NgFor,
-        ReactiveFormsModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatAutocompleteModule,
-        MatDatepickerModule,
-    ],
-    templateUrl: './budget-form.component.html',
-    styleUrls: ['./budget-form.component.scss'],
-    providers: [
-        {
-            provide: DateAdapter,
-            useClass: MomentDateAdapter,
-            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-        },
-        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    ]
+  selector: 'app-budget-form',
+  standalone: true,
+  imports: [
+    NgFor,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+  ],
+  templateUrl: './budget-form.component.html',
+  styleUrls: ['./budget-form.component.scss'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class BudgetFormComponent implements OnInit {
   options = ['One', 'Two', 'Three'];
