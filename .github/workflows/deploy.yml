@@ -3,10 +3,10 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - main   # ✅ Change if your default branch is different
+      - main # ✅ Change if your default branch is different
 
 permissions:
-  contents: write   # ✅ Required so the action can push to gh-pages
+  contents: write # ✅ Required so the action can push to gh-pages
 
 jobs:
   build-deploy:
@@ -35,6 +35,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages                   # Branch where files will be pushed
-          folder: dist/personal-finance-tracker       # ⚠️ Replace with your actual dist folder
-          clean: true   
+          branch: gh-pages # Branch where files will be pushed
+          folder: dist/personal-finance-tracker/browser # ⚠️ Replace with your actual dist folder
+          clean: true
