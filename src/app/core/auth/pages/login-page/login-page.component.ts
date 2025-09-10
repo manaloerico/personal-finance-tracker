@@ -3,11 +3,10 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 
 @Component({
-  selector: 'app-login-page',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+    selector: 'app-login-page',
+    imports: [CommonModule],
+    templateUrl: './login-page.component.html',
+    styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent  {
  private auth = inject(AuthService);

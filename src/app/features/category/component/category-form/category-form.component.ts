@@ -9,20 +9,19 @@ import { MatSelectModule } from '@angular/material/select';
 import { Category } from '../../../../core/services/category/category.service';
 import { TransactionType } from '../../../../core/services/transaction-type/transaction-type.service';
 @Component({
-  selector: 'app-category-form',
-  standalone: true,
-  imports: [
-    NgFor,
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    JsonPipe,
-  ],
-  templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.scss'],
+    selector: 'app-category-form',
+    imports: [
+        NgFor,
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        JsonPipe,
+    ],
+    templateUrl: './category-form.component.html',
+    styleUrls: ['./category-form.component.scss']
 })
 export class CategoryFormComponent implements OnInit {
   protected data: {

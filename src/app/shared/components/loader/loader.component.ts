@@ -3,11 +3,10 @@ import { Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-loader',
-  standalone: true,
-  templateUrl: './loader.component.html',
-  imports: [NgIf, NgFor, MatProgressSpinnerModule, NgSwitch, NgSwitchCase],
-  styleUrls: ['./loader.component.scss'],
+    selector: 'app-loader',
+    templateUrl: './loader.component.html',
+    imports: [NgIf, NgFor, MatProgressSpinnerModule, NgSwitch, NgSwitchCase],
+    styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent {
   @Input() mode: 'spinner' | 'skeleton' = 'spinner';

@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 // Common palettes
 $primary: mat.m2-define-palette(mat.$m2-indigo-palette);
@@ -57,9 +58,8 @@ $purple-green-theme: mat.m2-define-dark-theme((color: (primary: mat.m2-define-pa
 // Apply default Angular Material theming to dialogs
 .finance-dialog-container {
     // Use Material's core theming, this ensures all dialogs inherit default v16 theme
-    @include mat.core-theme(mat.m2-define-light-theme((color: (primary: mat.m2-define-palette(mat.$m2-indigo-palette),
-                    accent: mat.m2-define-palette(mat.$m2-pink-palette),
-                ))));
+    @include mat.elevation-classes();
+    @include mat.app-background();
     @include mat.all-component-themes(mat.m2-define-light-theme((color: (primary: mat.m2-define-palette(mat.$m2-indigo-palette),
                     accent: mat.m2-define-palette(mat.$m2-pink-palette),
                 ))));

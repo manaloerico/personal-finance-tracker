@@ -14,19 +14,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog'; 
 import { Transaction } from '../../../../core/services/transaction.service';
 @Component({
-  selector: 'app-transaction-form',
-  standalone: true,
-  imports: [ NgFor,
-    ReactiveFormsModule,
-    FormsModule, 
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    
-  ],
-  templateUrl: './transaction-form.component.html',
-  styleUrls: ['./transaction-form.component.scss'],
+    selector: 'app-transaction-form',
+    imports: [NgFor,
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+    ],
+    templateUrl: './transaction-form.component.html',
+    styleUrls: ['./transaction-form.component.scss']
 })
 export class TransactionFormComponent implements OnInit {
   protected data: { categoryList: Category[],action:'add' | 'update',currentData:Transaction } = inject(DIALOG_DATA); 

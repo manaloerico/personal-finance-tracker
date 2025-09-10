@@ -39,32 +39,31 @@ export const MY_FORMATS = {
   },
 };
 @Component({
-  selector: 'app-budget',
-  standalone: true,
-  templateUrl: './budget.component.html',
-  styleUrls: ['./budget.component.scss'],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatCardModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    SearchFilterPipe,
-  ],
-  providers: [
-    BudgetStoreService,
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ],
+    selector: 'app-budget',
+    templateUrl: './budget.component.html',
+    styleUrls: ['./budget.component.scss'],
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatCardModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        SearchFilterPipe,
+    ],
+    providers: [
+        BudgetStoreService,
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    ]
 })
 export class BudgetComponent implements OnInit {
   protected fb = inject(FormBuilder);

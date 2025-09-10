@@ -20,27 +20,25 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 import { SearchFilterPipe } from '../../shared/pipe/search-filter/search-filter.pipe';
 import { TransactionStoreService } from './store/transaction.store';
 @Component({
-  selector: 'app-transaction',
-  standalone: true,
-  templateUrl: './transaction.component.html',
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    SearchFilterPipe,
-    MatProgressSpinnerModule,
-    LoaderComponent,
-  ],
-
-  styleUrls: ['./transaction.component.scss'],
-  providers: [TransactionStoreService],
+    selector: 'app-transaction',
+    templateUrl: './transaction.component.html',
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        SearchFilterPipe,
+        MatProgressSpinnerModule,
+        LoaderComponent,
+    ],
+    styleUrls: ['./transaction.component.scss'],
+    providers: [TransactionStoreService]
 })
 export class TransactionComponent implements OnInit {
   private transactionStoreService = inject(TransactionStoreService);
