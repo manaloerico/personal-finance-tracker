@@ -1,7 +1,7 @@
 <div class="transactions__container">
 
   <div class="transactions__actions_container">
-    <form [formGroup]="transactionSearchForm" class="space-y-4 max-w-md">
+    <form [formGroup]="transactionSearchForm" (submit)="searchTransactionList()" class="space-y-4 max-w-md">
 
       <mat-form-field appearance="outline">
         <mat-label>Search</mat-label>
@@ -11,48 +11,75 @@
       <mat-form-field appearance="outline">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input [rangePicker]="picker">
-          <input matStartDate formControlName="transactionStartDate" placeholder="Start date">
-          <input matEndDate formControlName="transactionEndDate" placeholder="End date">
+          <input matStartDate formControlName="startDate" placeholder="Start date">
+          <input matEndDate formControlName="endDate" placeholder="End date">
         </mat-date-range-input>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary">Search</button>
     </form>
     <button mat-raised-button color="primary" (click)="addDemo()">Add Transaction</button>
   </div>
 
-  <table mat-table
-    [dataSource]="(transactions$ | async) || [] | searchFilter:transactionSearchForm.get('transactionSearchField')?.value! :'name'">
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef>Date</th>
-      <td mat-cell *matCellDef="let t">{{ t.date | date }}</td>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let t">{{ t.name}}</td>
-    </ng-container>
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>Type</th>
-      <td mat-cell *matCellDef="let t">{{ t.type }}</td>
-    </ng-container>
-    <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef>Category</th>
-      <td mat-cell *matCellDef="let t">{{ t.category?.categoryName }}</td>
-    </ng-container>
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef>Amount</th>
-      <td mat-cell *matCellDef="let t">{{ t.amount | number:'1.2-2' }}</td>
-    </ng-container>
+  <ng-container *ngIf="!(isLoading$ | async); else loading">
+    <table mat-table [dataSource]="(transactions$ | async) || [] 
+          | searchFilter: transactionSearchForm.get('transactionSearchField')?.value! : 'note'">
+
+      <!-- Date -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let t">{{ t.date | date }}</td>
+      </ng-container>
+
+      <!-- Name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Note</th>
+        <td mat-cell *matCellDef="let t">{{ t.note }}</td>
+      </ng-container>
+
+      <!-- Type -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let t">{{ t.category?.transactionType?.name }}</td>
+      </ng-container>
+
+      <!-- Category -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let t">{{ t.category?.categoryName }}</td>
+      </ng-container>
 
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let t">
-        <button mat-button color="warn" (click)="deleteTransaction(t.id)">Delete</button>
-        <button mat-button color="warn" (click)="updateTransaction(t)">Edit</button>
-      </td>
-    </ng-container>
+      <!-- Sub Category -->
+      <ng-container matColumnDef="subCategory">
+        <th mat-header-cell *matHeaderCellDef>Sub Category</th>
+        <td mat-cell *matCellDef="let t">{{ t.subcategory }}</td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['date','name','type','category','amount','action']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['date','name','type','category','amount','action'];"></tr>
-  </table>
+      <!-- Amount -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let t">{{ t.amount | number:'1.2-2' }}</td>
+      </ng-container>
+
+      <!-- Action -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let t">
+          <button mat-button color="warn" (click)="deleteTransaction(t.id)">Delete</button>
+          <button mat-button color="primary" (click)="updateTransaction(t)">Edit</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['date','name','type','category','subCategory','amount','action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['date','name','type','category','subCategory','amount','action'];">
+      </tr>
+    </table>
+  </ng-container>
+
+  <ng-template #loading>
+    <app-loader mode="skeleton" [count]="10" [height]="22"></app-loader>
+  </ng-template>
+</div>

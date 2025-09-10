@@ -5,11 +5,17 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class SearchFilterPipe implements PipeTransform {
-  transform<T>(items: T[], searchText: string, field: keyof T): T[] {
+  transform(items: any[], searchText: string, field: string): any[] {
     if (!items || !searchText) return items;
+
     const lower = searchText.toLowerCase();
-    return items.filter((item) =>
-      String(item[field]).toLowerCase().includes(lower)
-    );
+
+    return items.filter((item) => {
+      // Support nested paths like "category.categoryName"
+      const value = field.split('.').reduce((obj, key) => obj?.[key], item);
+      return String(value ?? '')
+        .toLowerCase()
+        .includes(lower);
+    });
   }
 }

@@ -8,34 +8,37 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Category } from '../../../../core/services/category/category.service';
 import { TransactionType } from '../../../../core/services/transaction-type/transaction-type.service';
-
 @Component({
   selector: 'app-category-form',
   standalone: true,
-  imports: [ NgFor,
+  imports: [
+    NgFor,
     ReactiveFormsModule,
-    FormsModule, 
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    JsonPipe
-    
+    JsonPipe,
   ],
   templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.scss']
+  styleUrls: ['./category-form.component.scss'],
 })
 export class CategoryFormComponent implements OnInit {
-  protected data: { transactionTypeList: TransactionType[],action:'add' | 'update',currentData:Category } = inject(DIALOG_DATA); 
+  protected data: {
+    transactionTypeList: TransactionType[];
+    action: 'add' | 'update';
+    currentData: Category;
+  } = inject(DIALOG_DATA);
 
-    dialogRef = inject<DialogRef<unknown>>(DialogRef<unknown>); 
-  get transactionTypeList() { 
+  dialogRef = inject<DialogRef<unknown>>(DialogRef<unknown>);
+  get transactionTypeList() {
     return this.data.transactionTypeList;
-  } 
+  }
   protected fb = inject(FormBuilder);
   protected categoryForm = this.fb.group({
     categoryName: [''],
-    transactionTypeId: [''], 
+    transactionTypeId: [''],
   });
 
   constructor() {
@@ -43,7 +46,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.data.action==='update' && this.data.currentData){
+    if (this.data.action === 'update' && this.data.currentData) {
       this.categoryForm.patchValue({
         categoryName: this.data.currentData.categoryName,
         transactionTypeId: this.data.currentData.transactionTypeId,
@@ -52,8 +55,10 @@ export class CategoryFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.categoryForm.value); 
-    this.dialogRef.close({action:this.data.action,data:this.categoryForm.value});
+    console.log(this.categoryForm.value);
+    this.dialogRef.close({
+      action: this.data.action,
+      data: this.categoryForm.value,
+    });
   }
-
 }

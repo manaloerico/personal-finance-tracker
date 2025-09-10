@@ -51,6 +51,8 @@ export class CategoryComponent implements OnInit {
     console.log('OnInit category component');
     this.categoryStore.getTransactionTypeList();
     this.categoryStore.getCategoryList();
+    // this.seedTransactionType();
+    // this.seedCategories();
   }
   categories$ = this.categoryStore.categoryList$.pipe(
     tap((list) => {
@@ -67,5 +69,67 @@ export class CategoryComponent implements OnInit {
 
   updateCategory(cat: Category) {
     this.categoryStore.openDialog({ action: 'update', currentData: cat });
+  }
+  seedCategories() {
+    const categories = [
+      {
+        transactionTypeId: '5T2r2UqzLitVwsDROIE4',
+        categoryName: 'Salary / Wages',
+        subcategories: [],
+      },
+      {
+        transactionTypeId: '5T2r2UqzLitVwsDROIE4',
+        categoryName: 'Investments',
+        subcategories: ['Dividends', 'Interest', 'Capital Gains'],
+      },
+      {
+        transactionTypeId: 'nRm38iVENgeDKQLOG2US',
+        categoryName: 'Food & Dining',
+        subcategories: ['Restaurants', 'Cafes', 'Takeout', 'Snacks'],
+      },
+      {
+        transactionTypeId: 'cIlxsvWjx1FCFHRZ7oGl',
+        categoryName: 'Savings & Investments',
+        subcategories: [
+          'Emergency Fund',
+          'Retirement',
+          'Stocks',
+          'Other Savings',
+        ],
+      },
+      {
+        transactionTypeId: 'NhpSb41NErf7nJapkB8e',
+        categoryName: 'Debt & Loans',
+        subcategories: ['Credit Card', 'Mortgage', 'Student Loan'],
+      },
+    ];
+
+    this.categoryStore.seedCategories(categories);
+  }
+
+  seedTransactionType() {
+    const transactionTypes = [
+      {
+        name: 'Income',
+        description: 'Money you earn (salary, business, side hustle, etc.)',
+      },
+      {
+        name: 'Expense',
+        description: 'Money you spend on daily living and activities',
+      },
+      {
+        name: 'Savings',
+        description: 'Money you set aside for future use',
+      },
+      {
+        name: 'Giving',
+        description: 'Donations, charity, or gifts to others',
+      },
+      {
+        name: 'Debt',
+        description: 'Money you owe (loans, credit cards, mortgages)',
+      },
+    ];
+    this.categoryStore.seedTransactionType(transactionTypes);
   }
 }

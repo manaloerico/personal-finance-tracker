@@ -1,0 +1,53 @@
+<div class="budget__container">
+    <h2>Manage Categories</h2>
+    <div class="budget__actions_container">
+        <form [formGroup]="budgetSearchForm" class="space-y-4 max-w-md" (ngSubmit)="getBudgetList()">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <input matInput formControlName="budgetSearchField" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Month and Year</mat-label>
+                <input matInput [matDatepicker]="dp">
+                <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
+                    panelClass="example-month-picker">
+                </mat-datepicker>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Search</button>
+        </form>
+        <button mat-raised-button color="primary" (click)="addbudget()">Add budget</button>
+    </div>
+
+    <table mat-table
+        [dataSource]="(budgetList$ | async) || [] | searchFilter:budgetSearchForm.get('budgetSearchField')?.value! :'category.categoryName'">
+        <ng-container matColumnDef="month">
+            <th mat-header-cell *matHeaderCellDef>Month</th>
+            <td mat-cell *matCellDef="let t">{{ t.month}}</td>
+        </ng-container>
+        <ng-container matColumnDef="year">
+            <th mat-header-cell *matHeaderCellDef>Year</th>
+            <td mat-cell *matCellDef="let t">{{ t.year}}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let t">{{ t.category.categoryName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let t">{{ t.amount }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let t">
+                <button mat-button color="warn" (click)="deleteBudget(t.id)">Delete</button>
+                <button mat-button color="warn" (click)="updateEdit(t)">Edit</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name','amount','month','year','action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name','amount','month','year','action'];"></tr>
+    </table>
+</div>

@@ -1,7 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { combineLatest, map, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, forkJoin, map, Observable, switchMap, tap } from 'rxjs';
 import {
   Category,
   CategoryService,
@@ -145,6 +145,32 @@ export class CategoryStoreService extends ComponentStore<CategoryState> {
               }
             })
           );
+        })
+      );
+    }
+  );
+
+  seedCategories = this.effect((trigger$: Observable<Category[]>) => {
+    return trigger$.pipe(
+      switchMap((catList: Category[]) => {
+        const a = catList.map((cat) => {
+          cat = { ...cat, transactionTypeId: 'U4IfWd4MkizMrJD9Kblb' };
+          return this.addCategory(cat);
+        });
+
+        return forkJoin(a);
+      })
+    );
+  });
+  seedTransactionType = this.effect(
+    (trigger$: Observable<TransactionType[]>) => {
+      return trigger$.pipe(
+        switchMap((catList: TransactionType[]) => {
+          const a = catList.map((cat) => {
+            return this.transactionTypeService.addTransactionType(cat);
+          });
+
+          return forkJoin(a);
         })
       );
     }

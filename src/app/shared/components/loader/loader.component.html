@@ -1,0 +1,11 @@
+<ng-container [ngSwitch]="mode">
+  <!-- Spinner Mode -->
+  <div *ngSwitchCase="'spinner'" class="loader-container">
+    <mat-spinner [diameter]="diameter"></mat-spinner>
+  </div>
+
+  <!-- Skeleton Mode -->
+  <div *ngSwitchCase="'skeleton'" class="skeleton-list">
+    <div class="skeleton-item" *ngFor="let i of createArray(count)" [style.height.px]="height"></div>
+  </div>
+</ng-container>

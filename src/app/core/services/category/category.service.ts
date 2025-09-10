@@ -37,7 +37,7 @@ export interface Category {
   date?: number;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CategoryService {
   private auth = inject(AuthService);
   private transactionTypeService = inject(TransactionTypeService);
@@ -48,30 +48,18 @@ export class CategoryService {
   get uid() {
     return this.auth.uid;
   }
-  async getCategoryMap() {
-    const categorySnap = await getDocs(collection(db, 'categories'));
-    const categoryMap: Record<string, Partial<Category>> = {};
-
-    categorySnap.forEach((doc) => {
-      categoryMap[doc.ref.path] = { id: doc.id, ...doc.data() };
-    });
-
-    return categoryMap;
+  getCategoryMap() {
+    const categorySnap = from(getDocs(collection(db, 'categories')));
+    return categorySnap.pipe(
+      map((data) => {
+        const categoryMap: Record<string, Partial<Category>> = {};
+        data.forEach((doc) => {
+          categoryMap[doc.ref.path] = { id: doc.id, ...doc.data() };
+        });
+        return categoryMap;
+      })
+    );
   }
-
-  // getCategoriesOnce$() {
-  //   if (!this.auth.uid) return; // not logged in yet
-  //   const q = query(
-  //     this.col,
-  //     where('userId', '==', this.auth.uid),
-  //     orderBy('date', 'desc')
-  //   );
-  //   const snap = await getDocs(q);
-  //   const data = snap.docs.map(
-  //     (d) => ({ id: d.id, ...d.data() } as Category)
-  //   );
-  //   return data;
-  // }
 
   getCategoryWithTransactionType() {
     return combineLatest([

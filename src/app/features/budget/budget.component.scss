@@ -1,6 +1,6 @@
 :host {
 
-    .category {
+    .budget {
         &__container {
             display: flex;
             flex-direction: row;
@@ -19,6 +19,13 @@
             // --mdc-outlined-text-field-outline-color: #000;
             // --mat-form-field-subscript-text-line-height: 0px;
             // --mdc-outlined-text-field-input-text-color: #000;
+
+
+            form {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
 
             ::ng-deep {
                 .mat-mdc-form-field-bottom-align::before {

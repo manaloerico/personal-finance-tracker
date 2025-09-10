@@ -1,0 +1,46 @@
+<div class="mat-mdc-theme">
+  <h2 mat-dialog-title>Hi </h2>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="space-y-4 max-w-md">
+
+    <div mat-dialog-content>
+
+      <mat-form-field>
+        <mat-label>Month and Year</mat-label>
+        <input matInput [matDatepicker]="dp" formControlName="date">
+        <mat-hint>MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
+          panelClass="example-month-picker">
+        </mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Transaction Type</mat-label>
+        <mat-select formControlName="transactionTypeId">
+          <ng-container *ngFor="let transactionType of transactionTypeList">
+            <mat-option [value]="transactionType.id">{{transactionType.name}}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Category Name</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="categoryName"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+
+
+    </div>
+    <div mat-dialog-actions [align]="'end'">
+      <button mat-button type="button" (click)="dialogRef.close()">No Thanks</button>
+      <button mat-button color="primary" type="submit" [disabled]="categoryForm.invalid" cdkFocusInitial>Ok</button>
+    </div>
+  </form>
+</div>
