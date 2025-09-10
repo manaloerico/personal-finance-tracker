@@ -4,10 +4,10 @@ import { User } from 'firebase/auth';
 import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
-  selector: 'app-user-menu',standalone: true,
-  templateUrl: './user-menu.component.html',
-  imports: [NgIf,MatMenuModule],
-  styleUrls: ['./user-menu.component.scss']
+    selector: 'app-user-menu',
+    templateUrl: './user-menu.component.html',
+    imports: [NgIf, MatMenuModule],
+    styleUrls: ['./user-menu.component.scss']
 })
 export class UserMenuComponent {
  @Input() user: User | null = null;

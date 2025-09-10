@@ -1,5 +1,5 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { JsonPipe, NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +19,6 @@ import { TransactionType } from '../../../../core/services/transaction-type/tran
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    JsonPipe,
   ],
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss'],

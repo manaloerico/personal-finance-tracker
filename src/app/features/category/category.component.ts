@@ -19,24 +19,23 @@ import { SearchFilterPipe } from '../../shared/pipe/search-filter/search-filter.
 import { CategoryStoreService } from './store/category.store';
 
 @Component({
-  selector: 'app-category',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatCardModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SearchFilterPipe,
-  ],
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss'],
-  providers: [CategoryStoreService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-category',
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatCardModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SearchFilterPipe,
+    ],
+    templateUrl: './category.component.html',
+    styleUrls: ['./category.component.scss'],
+    providers: [CategoryStoreService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent implements OnInit {
   readonly dialog = inject(Dialog);

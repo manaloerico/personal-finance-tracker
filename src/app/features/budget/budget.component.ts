@@ -24,7 +24,7 @@ import {
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
 
-import * as _moment from 'moment';
+import _moment from 'moment';
 
 const moment = _moment;
 export const MY_FORMATS = {

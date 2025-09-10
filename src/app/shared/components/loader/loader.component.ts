@@ -1,12 +1,12 @@
-import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgFor, NgSwitch, NgSwitchCase } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-loader',
-  standalone: true,
   templateUrl: './loader.component.html',
-  imports: [NgIf, NgFor, MatProgressSpinnerModule, NgSwitch, NgSwitchCase],
+  standalone: true,
+  imports: [NgFor, MatProgressSpinnerModule, NgSwitch, NgSwitchCase],
   styleUrls: ['./loader.component.scss'],
 })
 export class LoaderComponent {

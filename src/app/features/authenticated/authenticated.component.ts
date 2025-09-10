@@ -12,22 +12,21 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserMenuComponent } from '../../shared/components/user-menu/user-menu.component';
 import { ThemeService } from '../../shared/styles/theming/theme.service';
 @Component({
-  selector: 'app-authenticated',
-  standalone: true,
-  templateUrl: './authenticated.component.html',
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
-    UserMenuComponent,
-    MatMenuModule,
-  ],
-  styleUrls: ['./authenticated.component.scss'],
+    selector: 'app-authenticated',
+    templateUrl: './authenticated.component.html',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        RouterLink,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule,
+        MatButtonModule,
+        UserMenuComponent,
+        MatMenuModule,
+    ],
+    styleUrls: ['./authenticated.component.scss']
 })
 export class AuthenticatedComponent implements OnInit {
   isDark = true;
