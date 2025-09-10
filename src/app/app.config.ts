@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { provideFirebaseApp } from '@angular/fire/app';
@@ -21,11 +21,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
-    importProvidersFrom(
-      provideFirebaseApp(() => firebaseApp),
-      provideAuth(() => auth),
-      provideFirestore(() => db)
-    ),
+    provideFirebaseApp(() => firebaseApp),
+    provideAuth(() => auth),
+    provideFirestore(() => db),
     {
       provide: TRANSACTION_TYPE_COLLECTION,
       useValue: collection(db, 'transactionType'),
